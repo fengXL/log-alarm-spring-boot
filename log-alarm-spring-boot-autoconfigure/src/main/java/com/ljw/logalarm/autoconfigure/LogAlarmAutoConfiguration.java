@@ -1,5 +1,6 @@
 package com.ljw.logalarm.autoconfigure;
 
+import com.ljw.logalarm.core.appender.LogAlarmAppender;
 import com.ljw.logalarm.core.filter.*;
 import com.ljw.logalarm.core.service.Sender;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,10 @@ public class LogAlarmAutoConfiguration implements WebMvcConfigurer {
         if(logAlarmProperties.getExclude()!=null){
             AlarmFilter.exclusionThrowableSet.addAll(logAlarmProperties.getExclude().getThrowable());
             AlarmFilter.exclusionString.addAll(logAlarmProperties.getExclude().getKeyword());
+        }
+        // 设置堆栈深度配置
+        if(logAlarmProperties.getStackTraceDepth()!=null){
+            LogAlarmAppender.STACK_TRACE_DEPTH = logAlarmProperties.getStackTraceDepth();
         }
     }
 

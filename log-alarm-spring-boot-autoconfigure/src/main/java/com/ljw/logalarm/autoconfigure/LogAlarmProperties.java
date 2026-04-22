@@ -14,5 +14,6 @@ public class LogAlarmProperties {
     private String webhook;
     private String mode;
     private ErrorExcludeProperties exclude;
+    private Integer stackTraceDepth;// 堆栈深度，默认5
 
 }

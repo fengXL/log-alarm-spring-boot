@@ -30,6 +30,9 @@ import static com.ljw.logalarm.core.filter.TraceIdFilter.TRACE_ID;
 @Slf4j
 public class LogAlarmAppender extends AppenderBase<LoggingEvent> {
     private static final Pattern EXCEPTION_PATTERN= Pattern.compile("(.+?): ");
+    // 堆栈深度配置，可通过配置文件指定，默认为5
+    public static int STACK_TRACE_DEPTH = 5;
+
     @Override
     protected void append(LoggingEvent eventObject) {
         try {
@@ -55,7 +58,7 @@ public class LogAlarmAppender extends AppenderBase<LoggingEvent> {
         String stackTrace = "";
         if (proxy!=null){
             ShortenedThrowableConverter throwableConverter = new ShortenedThrowableConverter();
-            throwableConverter.setMaxDepthPerThrowable(5);
+            throwableConverter.setMaxDepthPerThrowable(STACK_TRACE_DEPTH);
             throwableConverter.setExcludes(Arrays.asList("sun\\.reflect\\..*\\.invoke.*","net\\.sf\\.cglib\\.proxy\\.MethodProxy\\.invoke"));
             throwableConverter.start();
             stackTrace =  throwableConverter.convert(eventObject);

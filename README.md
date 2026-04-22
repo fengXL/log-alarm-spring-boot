@@ -7,6 +7,7 @@
 - 支持traceId全局日志跟踪,包括web请求,Async任务,消息队列
 - 支持错误异常类或关键字忽略告警
 - 支持不同接口超时时间告警
+- 支持配置异常堆栈显示深度，平衡告警消息详细度和可读性
 ## 使用
 
 1. 增加依赖
@@ -34,6 +35,8 @@
 log-alarm:
   #当开启时候,会自动在MDC注入traceID属性
   enableTraceId: true
+  #堆栈深度，默认5，控制告警消息中异常堆栈显示的帧数
+  stackTraceDepth: 5
   #mode可选wordWechat|dingding
   timeout:
     settings:
